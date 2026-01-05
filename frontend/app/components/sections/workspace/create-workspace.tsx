@@ -62,6 +62,7 @@ const CreateWorkspace = ({
   const { mutate, isPending } = useCreateWorkspace();
 
   const onSubmit = (data: WorkspaceForm) => {
+    //console.log(data);
     mutate(data, {
       onSuccess: (data: any) => {
         form.reset();
