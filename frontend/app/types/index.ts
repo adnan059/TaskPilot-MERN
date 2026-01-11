@@ -22,3 +22,11 @@ export interface Workspace {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export enum ProjectStatus {
+  PLANNING = "Planning",
+  IN_PROGRESS = "In Progress",
+  ON_HOLD = "On Hold",
+  COMPLETED = "Completed",
+  CANCELLED = "Cancelled",
+}
