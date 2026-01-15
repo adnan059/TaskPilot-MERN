@@ -1,5 +1,9 @@
+import CreateProjectDialog from "@/components/sections/project/create-project";
+import ProjectList from "@/components/sections/workspace/project-list";
+import WorkspaceHeader from "@/components/sections/workspace/workspace-header";
+import Loader from "@/components/shared/loader";
 import { useGetWorkspaceQuery } from "@/hooks/use-workspace";
-import type { Workspace } from "@/types";
+import type { Project, Workspace } from "@/types";
 import React, { useState } from "react";
 import { useParams } from "react-router";
 
@@ -12,7 +16,45 @@ const WorkspaceDetails = () => {
     return <div>No Workspace Found</div>;
   }
 
-  return <div>WorkspaceDetails</div>;
+  const { data, isLoading } = useGetWorkspaceQuery(workspaceId) as {
+    data: {
+      workspace: Workspace;
+      projects: Project[];
+    };
+    isLoading: boolean;
+  };
+
+  console.log("ws details =>", data);
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8">
+      <WorkspaceHeader
+        workspace={data.workspace}
+        members={data?.workspace?.members as any}
+        onCreateProject={() => setIsCreateProject(true)}
+        onInviteMember={() => setIsInviteMember(true)}
+      />
+      <ProjectList
+        workspaceId={workspaceId}
+        projects={data.projects}
+        onCreateProject={() => setIsCreateProject(true)}
+      />
+      <CreateProjectDialog
+        isOpen={isCreateProject}
+        onOpenChange={setIsCreateProject}
+        workspaceId={workspaceId}
+        workspaceMembers={data.workspace.members as any}
+      />
+    </div>
+  );
 };
 
 export default WorkspaceDetails;
