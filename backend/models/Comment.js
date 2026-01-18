@@ -52,7 +52,7 @@ const commentSchema = new Schema(
     ],
     isEdited: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Comment = mongoose.model("Comment", commentSchema);
