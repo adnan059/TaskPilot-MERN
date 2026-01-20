@@ -1,6 +1,7 @@
 import RecentProjects from "@/components/sections/dashboard/recent-projects";
 import StatsCard from "@/components/sections/dashboard/stat-card";
 import StatisticsCharts from "@/components/sections/dashboard/statistics-chart";
+import UpcomingTasks from "@/components/sections/dashboard/upcoming-tasks";
 import Loader from "@/components/shared/loader";
 import { useGetWorkspaceStatsQuery } from "@/hooks/use-workspace";
 import type {
@@ -40,6 +41,8 @@ const Dashboard = () => {
     );
   }
 
+  console.log(data);
+
   return (
     <div className="space-y-8 2xl:space-y-12">
       <div className="flex items-center justify-between">
@@ -58,6 +61,7 @@ const Dashboard = () => {
 
       <div className="grid gap-6 lg:grid-cols-2">
         <RecentProjects data={data.recentProjects} />
+        <UpcomingTasks data={data.upcomingTasks} />
       </div>
     </div>
   );
